@@ -2,8 +2,23 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
-@Component
+@Component({
+  props: {
+    elementHeight: {
+      type: Number,
+      default: 0
+    }
+  },
+  watch: {
+    elementHeight: {
+      handler: 'onElementHeightChanged'
+    }
+  }
+})
 class VueBase extends Vue {
+  onElementHeightChanged (v) {
+  }
+
   isNullOrEmpty (val) {
     if (val === undefined || val === null || val === '' || val === '\u003cnil\u003e') {
       return true

@@ -46,10 +46,6 @@ import VueBase from '@/components/VueBase'
 
 @Component({
   props: {
-    minHeight: {
-      type: Number,
-      default: 100
-    },
     defaultActive: {
       type: String,
       default: ''
@@ -69,7 +65,7 @@ class Catalog extends VueBase {
   }
 
   get heightStyle () {
-    const minHeight = (this.minHeight - 25) + 'px'
+    const minHeight = (this.elementHeight - 25) + 'px'
     return {
       'min-height': minHeight
     }
