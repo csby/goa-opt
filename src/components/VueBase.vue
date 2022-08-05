@@ -16,7 +16,20 @@ import Component from 'vue-class-component'
   }
 })
 class VueBase extends Vue {
+  getBodyHeight () {
+    const height = this.$db.get(this.$db.keys.bodyHeight)
+    if (height) {
+      return height
+    }
+
+    return (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) - 31
+  }
+
   onElementHeightChanged (v) {
+  }
+
+  fireRoutePathChanged () {
+    this.$evt.fire(this.$evt.local.routing, this.$route.path)
   }
 
   isNullOrEmpty (val) {

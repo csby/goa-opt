@@ -55,6 +55,7 @@ class Home extends Vue {
     const marginHeight = 0
     const paddingHeight = 1
     this.mainHeight = clientHeight - topHeight - marginHeight - paddingHeight
+    this.$db.set(this.$db.keys.bodyHeight, this.mainHeight)
   }
 
   mounted () {
