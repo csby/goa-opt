@@ -24,6 +24,10 @@
           <div>程序路径:</div>
           <div>{{info.data.exe}}</div>
         </div>
+        <div class="row">
+          <div>命令行参数:</div>
+          <div class="cmd">{{info.data.cmdline}}</div>
+        </div>
       </div>
       <div>
         <el-alert v-show="info.error.code !== 0"
@@ -68,7 +72,8 @@ class PortProcess extends VueBase {
     loading: false,
     data: {
       name: '',
-      exe: ''
+      exe: '',
+      cmdline: ''
     },
     error: {
       code: 0,
@@ -88,6 +93,7 @@ class PortProcess extends VueBase {
     if (code === 0) {
       this.info.data.name = data.name
       this.info.data.exe = data.exe
+      this.info.data.cmdline = data.cmdline
     } else {
       this.info.error.summary = err.summary
       this.info.error.detail = err.detail
@@ -106,6 +112,7 @@ class PortProcess extends VueBase {
     this.info.loading = true
     this.info.data.name = ''
     this.info.data.exe = ''
+    this.info.data.cmdline = ''
     this.info.error.code = 0
     this.info.error.summary = ''
     this.info.error.detail = ''
@@ -148,8 +155,12 @@ export default PortProcess
   .row :first-child {
     font-weight: lighter;
     padding-right: 5px;
-    width: 65px;
-    min-width: 65px;
+    width: 80px;
+    min-width: 80px;
     text-align: right;
+  }
+  .cmd {
+    max-height: 100px;
+    overflow: auto;
   }
 </style>
