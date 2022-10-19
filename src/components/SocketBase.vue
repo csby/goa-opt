@@ -8,7 +8,14 @@ class SocketBase extends VueBase {
     this.$evt.fire(this.$evt.local.socket, id, data)
   }
 
+  connected () {
+  }
+
   onSocketMessage (id, data) {
+  }
+
+  onSocketConnected () {
+    this.connected()
   }
 
   onSocketNotify (id, data) {
@@ -16,11 +23,17 @@ class SocketBase extends VueBase {
   }
 
   mounted () {
+    this.$evt.on(this.$evt.websocket.connected, this.onSocketConnected)
     this.$evt.on(this.$evt.websocket.notify, this.onSocketNotify)
+
+    if (this.$db.get(this.$db.keys.connected)) {
+      this.connected()
+    }
   }
 
   beforeDestroy () {
     this.$evt.off(this.$evt.websocket.notify, this.onSocketNotify)
+    this.$evt.off(this.$evt.websocket.connected, this.onSocketConnected)
   }
 }
 

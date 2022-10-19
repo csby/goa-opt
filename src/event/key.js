@@ -15,6 +15,8 @@ const local = {
 }
 
 const websocket = {
+  // 已连接
+  connected: wkey('connected'),
   // 通知: (id, data)
   notify: wkey('notify')
 }

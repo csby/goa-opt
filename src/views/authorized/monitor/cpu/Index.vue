@@ -133,6 +133,14 @@ class Index extends SocketBase {
     this.$nextTick(this.fireRoutePathChanged)
     this.doGetCpuUsageList()
   }
+
+  connected () {
+    this.sendSocketMessage(this.$evt.id.wsCpuUsage, true)
+  }
+
+  beforeDestroy () {
+    this.sendSocketMessage(this.$evt.id.wsCpuUsage, false)
+  }
 }
 
 export default Index

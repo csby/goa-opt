@@ -19,12 +19,18 @@
 <script>
 import Component from 'vue-class-component'
 import LogoutBase from '@/components/LogoutBase'
+import Cfg from '@/config'
 
 @Component
 class LoginUser extends LogoutBase {
   displayName = ''
   loginTime = ''
   notifySocket = null
+  siteGuid = Cfg.app.guid
+
+  doReload () {
+    document.location.reload(true)
+  }
 
   onGetLoginAccount (code, err, data) {
     if (code === 0) {
@@ -55,7 +61,24 @@ class LoginUser extends LogoutBase {
     })
   }
 
+  onWebSiteUpdated (data) {
+    if (data.guid === this.siteGuid) {
+      const msg = '<div>版本号：' + data.version + '</div>' +
+          '<div>发布时间：' + data.deployTime + '</div>'
+      this.$notify({
+        title: '网站有更新',
+        dangerouslyUseHTMLString: true,
+        message: msg,
+        type: 'info'
+      })
+
+      this.doReload()
+    }
+  }
+
   onNotifyOpen () {
+    this.$db.set(this.$db.keys.connected, true)
+    this.$evt.fire(this.$evt.websocket.connected)
     this.$evt.fire(this.$evt.local.login)
     // console.log("websocket notify subscribe opened");
   }
@@ -71,6 +94,8 @@ class LoginUser extends LogoutBase {
       // console.log('onNotifyMessage(id =', msg.id, ', data =', msg.data, ')')
       if (msg.id === this.$evt.id.wsOptUserLogin) {
         this.onOtherUserLogin(msg.data)
+      } else if (msg.id === this.$evt.id.wsSiteUpload) {
+        this.onWebSiteUpdated(msg.data)
       }
     } catch (e) {
       console.log(e)
@@ -80,6 +105,7 @@ class LoginUser extends LogoutBase {
   onNotifyClose () {
     // console.log("websocket notify subscribe closed");
     this.notifySocket = null
+    this.$db.set(this.$db.keys.connected, false)
     this.$evt.fire(this.$evt.websocket.notify, this.$evt.id.wsOptUserLogout, null)
   }
 
@@ -102,6 +128,8 @@ class LoginUser extends LogoutBase {
       } catch (e) {
         console.log(e)
       }
+    } else {
+      this.$db.set(this.$db.keys.connected, false)
     }
   }
 
@@ -117,7 +145,7 @@ class LoginUser extends LogoutBase {
         console.log(e)
       }
     } else {
-      this.$evt.fire(this.$evt.websocket.notify, this.$evt.id.wsOptUserLogout, null)
+      // this.$evt.fire(this.$evt.websocket.notify, this.$evt.id.wsOptUserLogout, null)
     }
   }
 

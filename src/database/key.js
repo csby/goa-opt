@@ -19,7 +19,9 @@ const keys = {
   // 记住账号: bool
   rememberPassword: key('rememberPassword', true),
   // 客户区高度: number
-  bodyHeight: key('bodyHeight', true)
+  bodyHeight: key('bodyHeight', true),
+  // (websocket)已连接: bool
+  connected: key('connected')
 }
 
 function key (v, reserved = false) {

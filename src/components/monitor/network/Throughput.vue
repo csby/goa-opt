@@ -184,6 +184,14 @@ class Throughput extends SocketBase {
       }
     }
   }
+
+  connected () {
+    this.sendSocketMessage(this.$evt.id.wsNetworkThroughput, true)
+  }
+
+  beforeDestroy () {
+    this.sendSocketMessage(this.$evt.id.wsNetworkThroughput, false)
+  }
 }
 
 export default Throughput

@@ -47,7 +47,7 @@
 import Component from 'vue-class-component'
 import VueBase from '@/components/VueBase'
 
-@Component ({
+@Component({
   props: {
     pid: {
       type: Number,
@@ -118,7 +118,6 @@ class PortProcess extends VueBase {
     this.info.error.detail = ''
     this.post(this.$uris.monitorProcessInfo, argument, this.onGetInfo)
   }
-
 }
 
 export default PortProcess
@@ -149,7 +148,7 @@ export default PortProcess
 
   .row {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     padding: 5px 3px 0px 0px;
   }
   .row :first-child {

@@ -157,6 +157,14 @@ class Index extends SocketBase {
     this.$nextTick(this.fireRoutePathChanged)
     this.doGetMemUsageList()
   }
+
+  connected () {
+    this.sendSocketMessage(this.$evt.id.wsMemUsage, true)
+  }
+
+  beforeDestroy () {
+    this.sendSocketMessage(this.$evt.id.wsMemUsage, false)
+  }
 }
 
 export default Index
