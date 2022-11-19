@@ -17,15 +17,27 @@
     padding: 0;
   }
   .el-dialog .el-dialog__header {
-    padding: 2px 3px 5px 10px;
-    background-color: #f8f8f8;
+    padding: 2px 4px 3px 10px;
+    background-color: #409EFF;
+    color: white;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
   }
   .el-dialog .el-dialog__header .el-dialog__headerbtn {
     top: 5px;
-    right: 10px;
+    right: 6px;
+  }
+  .el-dialog .el-dialog__headerbtn .el-dialog__close {
+    color: #C0C4CC;
+  }
+  .el-dialog .el-dialog__headerbtn .el-dialog__close:hover {
+    color: white;
   }
   .el-dialog .el-dialog__body {
-    padding: 5px 20px 3px 10px;
+    padding: 10px 10px 5px 10px;
+  }
+  .el-dialog .el-dialog__footer {
+    padding: 5px 10px 10px 10px;
   }
 
   .sent {
@@ -41,5 +53,12 @@
   .recv .stroke {
     stroke: #cf9236;
     stroke-width: 2;
+  }
+
+  .status-running {
+    color: #67C23A;
+  }
+  .status-stopped {
+    color: #F56C6C;
   }
 </style>
